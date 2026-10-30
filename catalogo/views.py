@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 automoviles = [
     {"id": 1, "marca": "Toyota", "modelo": "Corolla", "anio": 2022},
@@ -13,3 +14,8 @@ clientes = [
     {"id": 2, "nombre": "Luis Gonzalez", "correo": "luis.gonzalez@example.com", "telefono": "+56922222222"},
     {"id": 3, "nombre": "Camila Rojas", "correo": "camila.rojas@example.com", "telefono": "+56933333333"},
 ]
+
+
+@api_view(["GET"])
+def listar_automoviles(request):
+    return Response(automoviles)

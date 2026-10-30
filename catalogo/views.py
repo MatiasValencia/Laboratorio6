@@ -1,4 +1,5 @@
 from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 from rest_framework.response import Response
 
 automoviles = [
@@ -14,6 +15,15 @@ clientes = [
     {"id": 2, "nombre": "Luis Gonzalez", "correo": "luis.gonzalez@example.com", "telefono": "+56922222222"},
     {"id": 3, "nombre": "Camila Rojas", "correo": "camila.rojas@example.com", "telefono": "+56933333333"},
 ]
+
+
+@api_view(["GET"])
+def api_root(request):
+    return Response({
+        "Listar Automóviles": reverse("listar_automoviles", request=request),
+        "Crear Automóviles": reverse("crear_automovil", request=request),
+    })
+
 
 @api_view(["GET"])
 def listar_automoviles(request):

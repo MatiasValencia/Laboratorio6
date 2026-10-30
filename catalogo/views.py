@@ -14,6 +14,7 @@ clientes = [
     {"id": 1, "nombre": "Ana Perez", "correo": "ana.perez@example.com", "telefono": "+56911111111"},
     {"id": 2, "nombre": "Luis Gonzalez", "correo": "luis.gonzalez@example.com", "telefono": "+56922222222"},
     {"id": 3, "nombre": "Camila Rojas", "correo": "camila.rojas@example.com", "telefono": "+56933333333"},
+    {"id": 4, "nombre": "Juan Perez", "correo": "juan.perez@example.com", "telefono": "+56944444444"},
 ]
 
 
@@ -39,3 +40,19 @@ def crear_automovil(request):
     ) + 1
     automoviles.append(nuevo_automovil)
     return Response(nuevo_automovil, status=201)
+
+
+@api_view(["GET"])
+def listar_clientes(request):
+    return Response(clientes)
+
+
+@api_view(["POST"])
+def crear_cliente(request):
+    nuevo_cliente = request.data.copy()
+    nuevo_cliente["id"] = max(
+        (cliente["id"] for cliente in clientes),
+        default=0,
+    ) + 1
+    clientes.append(nuevo_cliente)
+    return Response(nuevo_cliente, status=201)

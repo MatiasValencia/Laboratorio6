@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from catalogo.views import crear_automovil, listar_automoviles
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('automoviles/', listar_automoviles, name='listar_automoviles'),
+    path('automoviles/crear/', crear_automovil, name='crear_automovil'),
 ]

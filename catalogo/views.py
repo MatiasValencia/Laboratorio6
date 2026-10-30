@@ -14,6 +14,7 @@ clientes = [
     {"id": 1, "nombre": "Ana Perez", "correo": "ana.perez@example.com", "telefono": "+56911111111"},
     {"id": 2, "nombre": "Luis Gonzalez", "correo": "luis.gonzalez@example.com", "telefono": "+56922222222"},
     {"id": 3, "nombre": "Camila Rojas", "correo": "camila.rojas@example.com", "telefono": "+56933333333"},
+    {"id": 4, "nombre": "Juan Perez", "correo": "juan.perez@example.com", "telefono": "+56944444444"},
 ]
 
 

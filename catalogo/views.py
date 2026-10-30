@@ -44,3 +44,14 @@ def crear_automovil(request):
 @api_view(["GET"])
 def listar_clientes(request):
     return Response(clientes)
+
+
+@api_view(["POST"])
+def crear_cliente(request):
+    nuevo_cliente = request.data.copy()
+    nuevo_cliente["id"] = max(
+        (cliente["id"] for cliente in clientes),
+        default=0,
+    ) + 1
+    clientes.append(nuevo_cliente)
+    return Response(nuevo_cliente, status=201)

@@ -39,3 +39,8 @@ def crear_automovil(request):
     ) + 1
     automoviles.append(nuevo_automovil)
     return Response(nuevo_automovil, status=201)
+
+
+@api_view(["GET"])
+def listar_clientes(request):
+    return Response(clientes)

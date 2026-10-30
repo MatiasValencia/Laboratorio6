@@ -15,7 +15,17 @@ clientes = [
     {"id": 3, "nombre": "Camila Rojas", "correo": "camila.rojas@example.com", "telefono": "+56933333333"},
 ]
 
-
 @api_view(["GET"])
 def listar_automoviles(request):
     return Response(automoviles)
+
+
+@api_view(["POST"])
+def crear_automovil(request):
+    nuevo_automovil = request.data.copy()
+    nuevo_automovil["id"] = max(
+        (automovil["id"] for automovil in automoviles),
+        default=0,
+    ) + 1
+    automoviles.append(nuevo_automovil)
+    return Response(nuevo_automovil, status=201)

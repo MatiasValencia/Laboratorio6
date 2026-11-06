@@ -16,18 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from catalogo.views import AutomovilList
 
-from catalogo.views import (
-    crear_automovil,
-    crear_cliente,
-    listar_automoviles,
-    listar_clientes,
-)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('automoviles/', listar_automoviles, name='listar_automoviles'),
-    path('automoviles/crear/', crear_automovil, name='crear_automovil'),
-    path('clientes/', listar_clientes, name='listar_clientes'),
-    path('clientes/crear/', crear_cliente, name='crear_cliente'),
+    path('automoviles/', AutomovilList.as_view(), name='automoviles'),
+    path('automoviles/<int:pk>/', AutomovilList.as_view(), name='automovil-detail'),
 ]

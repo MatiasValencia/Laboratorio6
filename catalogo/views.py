@@ -1,6 +1,8 @@
-from rest_framework.decorators import api_view
-from rest_framework.reverse import reverse
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Automovil
+from .serializers import AutomovilSerializer
 
 automoviles = [
     {"id": 1, "marca": "Toyota", "modelo": "Corolla", "anio": 2022},
@@ -17,42 +19,27 @@ clientes = [
     {"id": 4, "nombre": "Juan Perez", "correo": "juan.perez@example.com", "telefono": "+56944444444"},
 ]
 
+class AutomovilList(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(Automovil, pk=pk)
 
-@api_view(["GET"])
-def api_root(request):
-    return Response({
-        "Listar Automóviles": reverse("listar_automoviles", request=request),
-        "Crear Automóviles": reverse("crear_automovil", request=request),
-    })
+    def get(self, request):
+        return Response(AutomovilSerializer(Automovil.objects.all(), many=True).data)
 
+    def post(self, request):
+        serializer = AutomovilSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
-@api_view(["GET"])
-def listar_automoviles(request):
-    return Response(automoviles)
+    def put(self, request, pk):
+        serializer = AutomovilSerializer(self.get_object(pk), data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
-
-@api_view(["POST"])
-def crear_automovil(request):
-    nuevo_automovil = request.data.copy()
-    nuevo_automovil["id"] = max(
-        (automovil["id"] for automovil in automoviles),
-        default=0,
-    ) + 1
-    automoviles.append(nuevo_automovil)
-    return Response(nuevo_automovil, status=201)
-
-
-@api_view(["GET"])
-def listar_clientes(request):
-    return Response(clientes)
-
-
-@api_view(["POST"])
-def crear_cliente(request):
-    nuevo_cliente = request.data.copy()
-    nuevo_cliente["id"] = max(
-        (cliente["id"] for cliente in clientes),
-        default=0,
-    ) + 1
-    clientes.append(nuevo_cliente)
-    return Response(nuevo_cliente, status=201)
+    def delete(self, request, pk):
+        self.get_object(pk).delete()
+        return Response(status=204)

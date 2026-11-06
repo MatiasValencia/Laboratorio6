@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from catalogo.views import AutomovilList
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('automoviles/', AutomovilList.as_view(), name='automoviles'),
+    path('automoviles/<int:pk>/', AutomovilList.as_view(), name='automovil-detail'),
 ]

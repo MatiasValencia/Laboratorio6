@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import Automovil
@@ -19,6 +20,9 @@ clientes = [
 ]
 
 class AutomovilList(APIView):
+    def get_object(self, pk):
+        return get_object_or_404(Automovil, pk=pk)
+
     def get(self, request):
         return Response(AutomovilSerializer(Automovil.objects.all(), many=True).data)
 
@@ -34,6 +38,7 @@ class AutomovilList(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
     def delete(self, request, pk):
         self.get_object(pk).delete()

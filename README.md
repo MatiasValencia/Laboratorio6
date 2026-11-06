@@ -1,6 +1,20 @@
-Para ingresar a las funciones de listar y crear, en la barra de dirección del navegador, se tienen que agregar al lado de la dirección:
+# Laboratorio 6: API REST
 
-* **/automoviles**: Para listar automoviles
-* **/automoviles/crear**: Para agregar un nuevo auto a la lista
-* **/clientes**: Para listar clientes
-* **/clientes/crear**: Para agregar un nuevo cliente a la lista
+Inicia el servidor de desarrollo con:
+
+```powershell
+python manage.py runserver
+```
+
+Abre `http://127.0.0.1:8000/` para acceder a la raíz de la API de Django REST
+Framework y sigue el enlace `automoviles`.
+
+La API navegable permite estas operaciones:
+
+- `/automoviles/`: `GET` lista los automóviles y `POST` crea uno.
+- `/automoviles/<id>/`: `GET` consulta un automóvil, `PUT` lo actualiza y
+  `DELETE` lo elimina.
+
+Los formularios para crear, actualizar y eliminar están disponibles en las
+páginas de esos endpoints. Los campos del automóvil son `marca`, `modelo` y
+`anio`.

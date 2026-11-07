@@ -11,14 +11,15 @@ añadidos en [el commit de Gabriel](https://github.com/MatiasValencia/Laboratori
 
 | Implementación | Líneas de código |
 |---|---:|
-| CRUD equivalente con `ClienteList` y `ClienteDetail` (`APIView`) | 22 |
+| CRUD equivalente con `ClienteList` y `ClienteDetail` (`APIView`) | 23 |
 | `ClienteViewSet` (`ModelViewSet`) | 3 |
 
 El conteo incluye definiciones y sentencias del CRUD; excluye imports, líneas en
 blanco y el serializer/rutas, que son compartidos. Para `APIView` se contó la
-implementación equivalente de las cinco operaciones y `get_object()`; el
-`ViewSet` actual solo necesita declarar la clase, `queryset` y
-`serializer_class`.
+implementación equivalente al patrón solicitado de las cinco operaciones y
+`get_object()`; es un conteo reconstruido, porque el historial de esta rama no
+contiene una versión de `Cliente` implementada con `APIView`. El `ViewSet`
+actual solo necesita declarar la clase, `queryset` y `serializer_class`.
 
 ## Reflexión
 
